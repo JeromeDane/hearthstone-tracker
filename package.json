@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/JeromeDane/hearthstone-tracker#readme",
   "dependencies": {
-    "hearthstone-log-watcher": "^3.0.1"
+    "hearthstone-log-reader": "0.2.1"
   }
 }

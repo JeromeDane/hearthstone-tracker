@@ -1,51 +1,46 @@
-console.log('Tracking Hearthstone stats ...')
-
-// https://www.npmjs.com/package/hearthstone-log-watcher
-var LogWatcher = require('hearthstone-log-watcher');
-
-var logWatcher = new LogWatcher({
+var LogReader = require('hearthstone-log-reader');
+var reader = new LogReader({
   // verbose: true
 });
 
-logWatcher.on('zone-change', data => {
-  // console.log(data.cardName + ' has moved from ' + data.fromTeam + ' ' + data.fromZone + ' to ' + data.toTeam + ' ' + data.toZone);
+reader.on('player-detected', function(player) {
+  // console.log('\n\n\nPLAYER DETECTED:===================\n', player);
+});
+reader.on('game-state', function(tag, value) {
+  // console.log('\ngame-state:', tag, value);
+});
+reader.on('game-start', function(game) {
+  console.log('Starting game:\n', game);
+});
+reader.on('turn-start', function(turn, player) {
+  console.log('Starting turn', turn, '(' + player.name + ')');
+})
+reader.on('draw-card', function(player, cardId, cardName) {
+  console.log(player.name, 'drew', cardName);
+})
+reader.on('mulligan-card', function(player, cardId, cardName) {
+  console.log(player.name, 'mulliganed', cardName);
+})
+reader.on('play-card', function(player, cardId, cardName) {
+  console.log(player.name, 'played', cardName);
+})
+reader.on('discard-card', function(player, cardId, cardName) {
+  console.log(player.name, 'discarded', cardName);
+})
+reader.on('create-card', function(player, cardId, cardName) {
+  console.log(player.name, 'created', cardName);
+})
+reader.on('zone-change', function(data) {
+  // console.log(data.cardName, 'moved from', data.fromTeam, data.fromZone, 'to', data.toTeam, data.toZone);
+})
+reader.on('game-complete', function(game) {
+  console.log('Game Complete:\n', game);
+  console.log('\n\ndrew', game.player.drew);
+  console.log('\n\nplayed', game.player.played);
+  console.log('\n\ncreated', game.player.created);
+  console.log('\n\ndiscarded', game.player.discarded);
+  console.log('\n\nopplayed', game.opponent.played);
+  console.log('\n\nopdiscarded', game.opponent.discarded);
 });
 
-logWatcher.on('game-state', (tag, value) => {
- // console.log('game-state:', tag, value);
-})
-
-logWatcher.on('turn-start', (turn, player) => {
-  // console.log('Starting turn', turn, '(player ' + player + ')');
-})
-
-logWatcher.on('play-card', (playerNum, cardId, cardName) => {
-  console.log('Player', playerNum, 'played', cardName);
-})
-logWatcher.on('draw-card', (playerNum, cardId, cardName) => {
-  console.log('Player', playerNum, 'drew', cardName);
-})
-logWatcher.on('discard-card', (playerNum, cardId, cardName) => {
-  console.log('Player', playerNum, 'discarded', cardName);
-})
-
-logWatcher.on('game-mode', mode => {
-  // console.log('Game mode is now', mode);
-})
-
-logWatcher.on('game-result', (result) => {
-  // console.log('game-result:', result);
-})
-
-logWatcher.on('game-start', game => {
- console.log('game-start:', game);
-});
-
-logWatcher.on('game-complete', game => {
- console.log('game-complete:', game);
- console.log('played', game.player1.played)
- console.log('drew', game.player1.drew)
- console.log('discarded', game.player1.discarded)
-});
-
-logWatcher.start();
+reader.start();
