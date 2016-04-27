@@ -1,6 +1,5 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin'),
-    webpack = require('webpack'),
-    path = require('path');
+    path = require('path')
 
 module.exports = {
   entry: [
@@ -10,7 +9,8 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, '../dist/js'),
-    filename: 'index_bundle.js'
+    publicPath: '/',
+    filename: 'index.js'
   },
   module: {
     loaders: [{
@@ -20,9 +20,8 @@ module.exports = {
     }]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'Hearthstone Tracker'
-    }),
+    })
   ]
-};
+}

@@ -1,38 +1,55 @@
 var express = require('express'),
     open = require('open'),
-    createRoutes = require('./routes')
+    path = require('path'),
+    proxy = require('proxy-middleware'),
+    createRoutes = require('./routes'),
+    webpack = require('webpack'),
+    WebpackDevServer = require('webpack-dev-server'),
+    CompilerPlugin = require('compiler-webpack-plugin'),
+    config = require('../client/webpack.config'),
+    ports = require('./ports'),
+    browserOpened = false
 
 var init = function() {
 
-  var port = 3000,
-      webpackPort = port + 1,
-      app = express(),
-      webpackUrl = 'http://localhost:' + webpackPort + '/'
+  var app = express(),
+      webpackUrl = 'http://localhost:' + ports.webpack + '/'
 
-  console.log('Starting server...')
+  console.log('Compiling code...')
 
-  createRoutes(app)
-  app.listen(port)
-
-  var webpack = require('webpack'),
-      WebpackDevServer = require('webpack-dev-server'),
-      config = require('../client/webpack.config')
+  // add dev server related webpack plugins
+  config.plugins.push(new webpack.HotModuleReplacementPlugin())
+  config.plugins.push(new CompilerPlugin('done', function(stats) {
+    if(!browserOpened) {
+      browserOpened = true
+      console.log('Server running on', webpackUrl)
+      open(webpackUrl)
+    }
+  }))
+  config.devtool = 'source-map'
 
   new WebpackDevServer(webpack(config), {
     hot: true,
     historyApiFallback: true,
+
+    // send failed requests to express server
     proxy: {
-      '*': 'http://localhost:' + port
+      '*': 'http://localhost:' + ports.express
     }
   }).listen(3001, 'localhost', function(err, result) {
     if(err) {
       console.log(err)
     }
-    console.log('Server running on', webpackUrl)
   })
 
-  open(webpackUrl)
+  // add back-end routes to express server
+  createRoutes(app)
 
+  // return unmatched routes back to bebpack for historyApiFallback
+  app.use('/*', proxy(webpackUrl))
+  app.listen(ports.express)
+
+  // open(webpackUrl)
 }
 
 module.exports = {
