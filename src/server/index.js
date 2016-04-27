@@ -26,6 +26,9 @@ var init = function() {
       open(webpackUrl)
     }
   }))
+  config.entry.push('webpack-dev-server/client?' + webpackUrl)
+  config.entry.push('webpack/hot/only-dev-server')
+
   config.devtool = 'source-map'
 
   new WebpackDevServer(webpack(config), {
