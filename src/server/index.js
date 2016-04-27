@@ -1,5 +1,6 @@
 var express = require('express'),
-    open = require('open');
+    open = require('open'),
+    createRoutes = require('./routes');
 
 var init = function() {
 
@@ -10,9 +11,8 @@ var init = function() {
 
   console.log("Starting server...");
 
-  app.listen(port, function () {
-    // console.log('Example app listening on port', port);
-  });
+  createRoutes(app);
+  app.listen(port);
 
   var webpack = require('webpack'),
       WebpackDevServer = require('webpack-dev-server'),

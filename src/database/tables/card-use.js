@@ -42,9 +42,23 @@ var save = function(game, gameDbId) {
   })
 };
 
+var getForGame = function(gameId, callback) {
+  db.all("SELECT * FROM card_use WHERE game_id = " + parseInt(gameId), function(err, rows) {
+    if(err) console.log(err);
+    callback(rows);
+  });
+};
+
+var getAllGame = function(callback) {
+  db.all("SELECT * FROM card_use WHERE gameId = " + parseInt(gameId), function(err, rows) {
+    callback(rows);
+  });
+};
+
 module.exports = {
   init: function() {
     ifTableDoesNotExist('card_use').then(createTable);
   },
-  save: save
+  save: save,
+  getForGame: getForGame
 };

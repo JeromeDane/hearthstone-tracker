@@ -46,10 +46,25 @@ var saveGame = function(game) {
   );
 };
 
+var getAll = function(callback) {
+  db.all("SELECT * FROM games", function(err, games) {
+    console.log("select games", games);
+    callback(games);
+  });
+};
+
+var getById = function(id, callback) {
+  db.get("SELECT * FROM games WHERE id = " + parseInt(id), function(err, row) {
+    callback(row);
+  });
+}
+
 module.exports = {
   init: function() {
     ifTableDoesNotExist('games').then(createTable);
     cardUseTable.init();
   },
+  getAll: getAll,
+  getById: getById,
   saveGame: saveGame
 };
