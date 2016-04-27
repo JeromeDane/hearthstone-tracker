@@ -1,0 +1,29 @@
+{
+  "extends": "defaults/configurations/google",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "brace-style": 0,
+    "default-case": 0,
+    "guard-for-in": 0,
+    "indent": ["error", 2, { "SwitchCase": 1, "VariableDeclarator": 2 }],
+    "keyword-spacing": ["error", {"overrides": {
+      "if": {"after": false},
+      "for": {"after": false}
+    }}],
+    "newline-after-var": 0,
+    "no-invalid-this": 0,
+    "no-loop-func": 0,
+    "semi": ["error", "never"],
+    "space-before-function-paren": ["error", "never"]
+  }
+}

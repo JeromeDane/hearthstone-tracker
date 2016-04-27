@@ -12,6 +12,13 @@ module.exports = {
     path: path.resolve(__dirname, '../dist/js'),
     filename: 'index_bundle.js'
   },
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      exclude: './node_modules/',
+      loader: 'babel-loader'
+    ]}
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
