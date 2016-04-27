@@ -4,7 +4,7 @@
   "description": "Detailed Hearthstone game, win rate, and card tracking.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./src/index.js --harmony",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/JeromeDane/hearthstone-tracker#readme",
   "dependencies": {
-    "hearthstone-log-reader": "0.2.1"
+    "hearthstone-log-reader": "^0.3.0",
+    "sqlite3": "^3.1.3"
   }
 }

@@ -1,4 +1,8 @@
-var LogReader = require('hearthstone-log-reader');
+var LogReader = require('hearthstone-log-reader'),
+    db = require('./database');
+
+db.init();
+
 var reader = new LogReader({
   // verbose: true
 });
@@ -41,6 +45,7 @@ reader.on('game-complete', function(game) {
   console.log('\n\ndiscarded', game.player.discarded);
   console.log('\n\nopplayed', game.opponent.played);
   console.log('\n\nopdiscarded', game.opponent.discarded);
+  db.saveGame(game);
 });
 
 reader.start();
