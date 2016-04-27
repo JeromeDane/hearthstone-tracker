@@ -23,7 +23,12 @@
   },
   "homepage": "https://github.com/JeromeDane/hearthstone-tracker#readme",
   "dependencies": {
+    "express": "^4.13.4",
     "hearthstone-log-reader": "^0.3.0",
-    "sqlite3": "^3.1.3"
+    "html-webpack-plugin": "^2.16.0",
+    "open": "0.0.5",
+    "sqlite3": "^3.1.3",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }

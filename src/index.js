@@ -1,7 +1,9 @@
 var LogReader = require('hearthstone-log-reader'),
-    db = require('./database');
+    db = require('./database'),
+    server = require('./server');
 
 db.init();
+server.init();
 
 var reader = new LogReader({
   // verbose: true
