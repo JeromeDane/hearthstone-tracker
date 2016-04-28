@@ -11,11 +11,14 @@ module.exports = {
     filename: 'index.js'
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: path.resolve(__dirname, '../../node_modules/'),
-      loader: 'babel-loader'
-    }]
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: path.resolve(__dirname, '../../node_modules/'),
+        loader: 'babel-loader'
+      },
+      {test: /\.css$/, loader: 'style!css'}
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({

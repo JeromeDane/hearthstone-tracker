@@ -50,8 +50,7 @@ var saveGame = function(game) {
 }
 
 var getAll = function(callback) {
-  db.all('SELECT * FROM games', function(err, games) {
-    console.log('select games', games)
+  db.all('SELECT * FROM games ORDER BY end DESC', function(err, games) {
     callback(games)
   })
 }

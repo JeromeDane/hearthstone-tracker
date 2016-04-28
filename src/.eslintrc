@@ -15,7 +15,7 @@
     "brace-style": 0,
     "default-case": 0,
     "guard-for-in": 0,
-    "indent": ["error", 2, { "SwitchCase": 1, "VariableDeclarator": 2 }],
+    "indent": ["error", 2, { "SwitchCase": 1, "VariableDeclarator": {"var": 2, "const": 3 }}],
     "keyword-spacing": ["error", {"overrides": {
       "if": {"after": false},
       "for": {"after": false},

@@ -5,6 +5,13 @@ import toJson from 'vdom-as-json/toJson'
 import {getLocalPathname} from 'local-links'
 import app from './views/app'
 
+require('./styles/index.css')
+require('basscss/css/basscss.css')
+require('basscss-btn/css/btn.css')
+require('basscss-lighten/css/lighten.css')
+require('basscss-colors/css/colors.css')
+require('basscss-background-colors/css/background-colors.css')
+
 const rootElement = document.createElement('main')
 
 // Create an instance of our worker. The actual loading of the script gets handled
@@ -56,7 +63,7 @@ const handleClicks = () => {
       // instead, post the new URL to our worker which will trigger compute a new vDom
       // based on that new URL state
       worker.postMessage({type: 'setUrl', payload: pathname})
-      return}
+    }
 
     // this is for other "onClick" type events we want to respond to. We check existance of an `data-click`
     // attribute and if it exists, post that back. In our case, the messages look like either
